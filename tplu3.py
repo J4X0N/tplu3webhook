@@ -1,3 +1,14 @@
+import base64
+import hashlib
+import hmac
+
+channel_secret = 968e28402f9b9007fc94ab37cf688a83 # Channel secret string
+body = ... # Request body string
+hash = hmac.new(channel_secret.encode('utf-8'),
+    body.encode('utf-8'), hashlib.sha256).digest()
+signature = base64.b64encode(hash)
+# Compare X-Line-Signature request header and the signature
+
 from linebot import LineBotApi
 from linebot.models import TextSendMessage
 from linebot.exceptions import LineBotApiError
@@ -11,14 +22,3 @@ except LineBotApiError as e:
     # error handle
 
 
-
-import base64
-import hashlib
-import hmac
-
-channel_secret = 968e28402f9b9007fc94ab37cf688a83 # Channel secret string
-body = ... # Request body string
-hash = hmac.new(channel_secret.encode('utf-8'),
-    body.encode('utf-8'), hashlib.sha256).digest()
-signature = base64.b64encode(hash)
-# Compare X-Line-Signature request header and the signature
