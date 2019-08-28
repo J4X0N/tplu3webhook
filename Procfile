@@ -1,1 +1,1 @@
-web: gunicorn quick_flask:app
+web: python app.py
